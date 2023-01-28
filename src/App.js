@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [data, setdata] = useState([])
+  useEffect(() => {
+    getuser()
+  }, [])
+
+  const getuser = async () => {
+    const data = await axios.get(`https://mongo-3ihm.onrender.com/api`)
+    console.log(data.data);
+    setdata(data.data)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      hello
+      {data.map((val) => {
+        return (
+          <h1>{val.text}</h1>
+        )
+      })}
     </div>
   );
 }
